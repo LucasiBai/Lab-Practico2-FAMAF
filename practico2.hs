@@ -12,20 +12,17 @@ factorial x = x * factorial (x-1)
 sumatoria2 :: Int -> Int
 sumatoria2 x = sum [1..x]
 
+-- Discrepo
+discrepo :: String 
+discrepo = "Ejecuto una discrepancia"
+
+-- Funciones Recursivas del tipo Filter
 -- 3)a)
 soloPares :: [Int]->[Int]
 soloPares [] = []
 soloPares (x:xs) | x`mod`2==0 = x : soloPares xs 
 		 | otherwise = soloPares xs
 
--- Discrepo
-discrepo :: String 
-discrepo = "discrepo"
-
--- Función length custom con recursividad
-customLength :: [a] -> Int
-customLength [] = 0
-customLength (x:xs) = 1 + customLength xs
 
 -- 3)b)
 mayoresQue10 :: [Int] -> [Int]
@@ -33,10 +30,6 @@ mayoresQue10 []=[]
 mayoresQue10 (x:xs)|x>10=x:mayoresQue10 xs
 		   |otherwise= mayoresQue10 xs
 
--- Prueba de función map
-sumar3 :: [Int] -> [Int]
-sumar3 [] = []
-sumar3 (x : xs) = (x+3) : sumar3 xs
 
 -- 3)c)
 mayoresQue :: Int -> [Int] -> [Int]
@@ -45,6 +38,12 @@ mayoresQue x (y:ys) 	| x < y = y : mayoresQue x ys
 			| otherwise = mayoresQue x ys
 
 -- Funciones Recursivas del tipo Map
+
+-- Prueba de función map
+sumar3 :: [Int] -> [Int]
+sumar3 [] = []
+sumar3 (x : xs) = (x+3) : sumar3 xs
+
 -- 4)a)
 sumar1::[Int]->[Int]
 sumar1 []=[]
@@ -66,4 +65,40 @@ todosMenores10 :: [Int] -> Bool
 todosMenores10 [] = True
 todosMenores10 (x:xs) = (x<10) == todosMenores10 xs
 
-	
+-- 5)b)
+hay0::[Int]->Bool
+hay0 []=False
+hay0 (x:xs)=(x==0)||hay0 xs
+
+-- 5)c)	
+sumC :: [Int] -> Int
+sumC [] = 0
+sumC (x:xs) = x + sumC xs
+
+-- Funciones Recursivas del tipo Zip
+-- 6)
+repartir :: [String] -> [String] ->[(String, String)]
+repartir (x:xs) [] = (x,"No queda mas nada para vos pichon :'c") :repartir xs []
+repartir [] ys = []
+repartir (x:xs) (y:ys) = (x, y) : repartir xs ys
+
+-- Funciones Recursivas de tipo Unzip
+--7)
+apellido::[(String,String,Int)]->[String]
+apellido []=[]
+apellido ((x,y,z):xs) = y:apellido xs
+
+-- 8) Length escrito de forma recursiva
+customLength :: [a] -> Int
+customLength [] = 0
+customLength (x:xs) = 1 + customLength xs
+
+-- 8) !! escrito de forma recursiva
+customId :: [a] -> Int -> a
+customId (x:xs) y | (y == 0) = x
+		  | otherwise = customId xs (y-1)
+
+--8)take escrito de forma recursiva
+customTake:: Int -> [a] -> [a]
+customTake y (x:xs) | (y==1)  = [x]
+		    | otherwise =  x:customTake (y-1) xs 
