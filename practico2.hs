@@ -20,22 +20,22 @@ discrepo = "Ejecuto una discrepancia"
 -- 3)a)
 soloPares :: [Int]->[Int]
 soloPares [] = []
-soloPares (x:xs) | x`mod`2==0 = x : soloPares xs 
-		 | otherwise = soloPares xs
+soloPares (x:xs)  | x `mod` 2 == 0 = x : soloPares xs 
+		              | otherwise = soloPares xs
 
 
 -- 3)b)
 mayoresQue10 :: [Int] -> [Int]
 mayoresQue10 []=[]
-mayoresQue10 (x:xs)|x>10=x:mayoresQue10 xs
-		   |otherwise= mayoresQue10 xs
+mayoresQue10 (x:xs) | x > 10 = x : mayoresQue10 xs
+		                |otherwise = mayoresQue10 xs
 
 
 -- 3)c)
 mayoresQue :: Int -> [Int] -> [Int]
 mayoresQue x [] = []
-mayoresQue x (y:ys) 	| x < y = y : mayoresQue x ys
-			| otherwise = mayoresQue x ys
+mayoresQue x (y:ys) | x < y = y : mayoresQue x ys
+                    | otherwise = mayoresQue x ys
 
 -- Funciones Recursivas del tipo Map
 
@@ -79,7 +79,7 @@ sumC (x:xs) = x + sumC xs
 -- 6)
 repartir :: [String] -> [String] ->[(String, String)]
 repartir (x:xs) [] = (x,"No queda mas nada para vos pichon :'c") :repartir xs []
-repartir [] ys = []
+repartir [] _ = []
 repartir (x:xs) (y:ys) = (x, y) : repartir xs ys
 
 -- Funciones Recursivas de tipo Unzip
@@ -88,17 +88,29 @@ apellido::[(String,String,Int)]->[String]
 apellido []=[]
 apellido ((x,y,z):xs) = y:apellido xs
 
--- 8) Length escrito de forma recursiva
+-- 8) length escrito de forma recursiva
 customLength :: [a] -> Int
 customLength [] = 0
 customLength (x:xs) = 1 + customLength xs
 
 -- 8) !! escrito de forma recursiva
 customId :: [a] -> Int -> a
-customId (x:xs) y | (y == 0) = x
-		  | otherwise = customId xs (y-1)
+customId (x:xs) 0 = x
+customId (x:xs) n = customId xs (n-1)
 
---8)take escrito de forma recursiva
+--8) take escrito de forma recursiva
 customTake:: Int -> [a] -> [a]
-customTake y (x:xs) | (y==1)  = [x]
-		    | otherwise =  x:customTake (y-1) xs 
+customTake n _ | n <= 0 = []
+customTake _ [] = []
+customTake n (x:xs) = x : customTake (n-1) xs
+
+--8) drop escrito de forma recursiva
+customDrop :: Int -> [a] -> [a]
+customDrop n xs | n <= 0 = xs 
+customDrop _ [] = []
+customDrop n (x:xs) = customDrop (n-1) xs
+
+--8) ++ escrito de forma recursiva
+customConcat :: [a] -> [a] -> [a]
+customConcat [] ys = ys
+customConcat (x:xs) ys = x : customConcat xs ys
